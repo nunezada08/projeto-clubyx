@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 });
 
 // Rotas
-app.use('/api/exemplos', exemplosRoutes);
+app.use('/', exemplosRoutes);
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Rota não encontrada' });
