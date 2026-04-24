@@ -33,7 +33,7 @@ model Integrante {
 
 
 
-//Usuario
+//Usuario // Henrico
 
 
 model Usuario {
@@ -48,10 +48,24 @@ model Usuario {
     @@map("Usuario")
 }
 
+//conteudo // Henrico
+
+model Conteudo {
+    id              Int      @id @default(autoincrement())
+    materia         String
+    resumo          String
+    dicas           String
+    analises        String
+    curiosidades    String
+    videoAulas      String
+
+    @@map("conteudo")
+}
 
 
 
-//Livro / autor
+
+//Livro / autor  // Nunes
 
 model Livro {
     id              Int      @id @default(autoincrement())
@@ -75,8 +89,8 @@ model Autor {
     id              Int      @id @default(autoincrement())
     nome            String
     biografiaAutor  String
-    dataNascimento DateTime
-    dataMorte DateTime?
+    dataNascimento  DateTime
+    dataMorte       DateTime?
     foto            String?
     livros   Livro[]
 
@@ -87,25 +101,7 @@ model Autor {
 
 
 
-
-//conteudo
-
-model Conteudo {
-    id              Int      @id @default(autoincrement())
-    materia         String
-    resumo          String
-    dicas           String
-    analises        String
-    curiosidades    String
-    videoAulas      String
-
-    @@map("conteudo")
-}
-
-
-
-
-//Simulado / questões / alternativas
+//Simulado / questões / alternativas  // LucasTheBento
 
 model Simulado {
     id          Int        @id @default(autoincrement())
