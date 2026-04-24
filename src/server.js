@@ -12,7 +12,9 @@ app.get('/', (req, res) => {
 });
 
 // Rotas
+
 app.use('/', livroRoutes);
+
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Rota não encontrada' });
