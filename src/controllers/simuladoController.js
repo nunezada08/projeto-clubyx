@@ -1,4 +1,4 @@
-import SimuladoModel from '../models/SimuladoModel';
+import SimuladoModel from '../models/SimuladoModel.js';
 
 export const criar = async (req, res) => {
     try {
@@ -6,7 +6,7 @@ export const criar = async (req, res) => {
             return res.status(400).json({ error: 'Corpo da requisição vazio. Envie os dados!' });
         }
 
-        const { nome, materia, resumo, questoes } = req.body;
+        const { nome, materia, resumo } = req.body;
 
         if (!nome) {
             return res.status(400).json({ error: 'O campo "nome" é obrigatório!' });
@@ -20,11 +20,7 @@ export const criar = async (req, res) => {
             return res.status(400).json({ error: 'O campo "resumo" é obrigatório!' });
         }
 
-        if (questoes !== undefined && !Array.isArray(questoes)) {
-            return res.status(400).json({ error: 'O campo "questoes" deve ser um array.' });
-        }
-
-        const simulado = new SimuladoModel({nome, materia, resumo, questoes});
+        const simulado = new SimuladoModel({ nome, materia, resumo });
         const data = await simulado.criar();
 
         return res.status(201).json({ message: 'simulado criado com sucesso!', data });
@@ -53,11 +49,11 @@ export const buscarPorId = async (req, res) => {
     try {
         const { id } = req.params;
 
-        if (isNaN(id)) {
+        if (Number.isNaN(parseInt(id, 10))) {
             return res.status(400).json({ error: 'O ID enviado não é um número válido.' });
         }
 
-        const simulado = await SimuladoModel.buscarPorId(parseInt(id));
+        const simulado = await SimuladoModel.buscarPorId(parseInt(id, 10));
 
         if (!simulado) {
             return res.status(404).json({ error: 'Simulado não encontrado.' });
@@ -74,7 +70,7 @@ export const atualizar = async (req, res) => {
     try {
         const { id } = req.params;
 
-        if (isNaN(id)) {
+        if (Number.isNaN(parseInt(id, 10))) {
             return res.status(400).json({ error: 'ID inválido.' });
         }
 
@@ -82,7 +78,7 @@ export const atualizar = async (req, res) => {
             return res.status(400).json({ error: 'Corpo da requisição vazio. Envie os dados!' });
         }
 
-        const simulado = await SimuladoModel.buscarPorId(parseInt(id));
+        const simulado = await SimuladoModel.buscarPorId(parseInt(id, 10));
 
         if (!simulado) {
             return res.status(404).json({ error: 'Simulado não encontrado para atualizar.' });
@@ -97,17 +93,11 @@ export const atualizar = async (req, res) => {
         if (req.body.resumo !== undefined) {
             simulado.resumo = req.body.resumo;
         }
-        if (req.body.questoes !== undefined) {
-            if (!Array.isArray(req.body.questoes)) {
-                return res.status(400).json({ error: 'O campo "questoes" deve ser um array.' });
-            }
-
-            simulado.questoes = req.body.questoes;
-        }
-
         const data = await simulado.atualizar();
 
-        return res.status(200).json({ message: `O Simulado "${data.nome}" foi atualizado com sucesso!`, data });
+        return res
+            .status(200)
+            .json({ message: `O Simulado "${data.nome}" foi atualizado com sucesso!`, data });
     } catch (error) {
         console.error('Erro ao atualizar:', error);
         return res.status(500).json({ error: 'Erro ao atualizar Simulado.' });
@@ -118,11 +108,11 @@ export const deletar = async (req, res) => {
     try {
         const { id } = req.params;
 
-        if (isNaN(id)) {
+        if (Number.isNaN(parseInt(id, 10))) {
             return res.status(400).json({ error: 'ID inválido.' });
         }
 
-        const simulado = await SimuladoModel.buscarPorId(parseInt(id));
+        const simulado = await SimuladoModel.buscarPorId(parseInt(id, 10));
 
         if (!simulado) {
             return res.status(404).json({ error: 'Simulado não encontrado para deletar.' });
@@ -130,7 +120,10 @@ export const deletar = async (req, res) => {
 
         await simulado.deletar();
 
-        return res.status(200).json({ message: `O Simulado "${simulado.nome}" foi deletado com sucesso!`, deletado: simulado });
+        return res.status(200).json({
+            message: `O Simulado "${simulado.nome}" foi deletado com sucesso!`,
+            deletado: simulado,
+        });
     } catch (error) {
         console.error('Erro ao deletar:', error);
         return res.status(500).json({ error: 'Erro ao deletar simulado.' });
