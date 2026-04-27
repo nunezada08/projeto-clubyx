@@ -7,7 +7,7 @@ datasource db {
 }
 
 
-//Equipe / Integrante
+//Equipe / Integrante /Lucas
 
 model Equipe {
     id           Int           @id @default(autoincrement())
