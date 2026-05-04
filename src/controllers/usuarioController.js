@@ -1,4 +1,4 @@
-import UsuarioModel from '../models/UsuarioModel';
+import UsuarioModel from '../models/UsuarioModel.js';
 
 export const criar = async (req, res) => {
     try {
@@ -8,23 +8,24 @@ export const criar = async (req, res) => {
 
         const { nome, email, senha } = req.body;
 
-        if (!nome){
+        if (!nome) {
             return res.status(400).json({ error: 'O campo "nome" é obrigatório!' });
         }
 
-        if (!email){
+        if (!email) {
             return res.status(400).json({ error: 'O campo "email" é obrigatório!' });
         }
         if (!email.includes('@')) {
-            return res.status(400).json({error: 'O campo "senha" precisa ter um @ (ex: joao@email.com) '})
+            return res
+                .status(400)
+                .json({ error: 'O campo "senha" precisa ter um @ (ex: joao@email.com) ' });
         }
 
         if (!senha) {
-            return res.status(400).json({error: 'O campo "senha" é obrigatório'})
+            return res.status(400).json({ error: 'O campo "senha" é obrigatório' });
         }
 
-
-        const usuario = new UsuarioModel({ nome, emal, senha });
+        const usuario = new UsuarioModel({ nome, email, senha });
         const data = await usuario.criar();
 
         return res.status(201).json({ message: 'Usuário criado com sucesso!', data });
@@ -92,17 +93,25 @@ export const atualizar = async (req, res) => {
             usuario.nome = req.body.nome;
         }
         if (req.body.email !== undefined) {
-            usuario.email = req.body.email
+            usuario.email = req.body.email;
         }
         if (req.body.senha !== undefined) {
-            usuario.senha = req.body.senha
+            usuario.senha = req.body.senha;
         }
 
         const data = await usuario.atualizar();
 
-        return res.status(200).json({ message: `O Usuário "${data.nome}" foi atualizado com sucesso!`, data });
+        return res
+            .status(200)
+            .json({ message: `O Usuário "${data.nome}" foi atualizado com sucesso!`, data });
     } catch (error) {
         console.error('Erro ao atualizar:', error);
+        if (error.code === 'P2002') {
+            return res.status(409).json({ error: 'Já existe um usuário com este email.' });
+        }
+        if (error.code === 'P2025') {
+            return res.status(404).json({ error: 'Usuário não encontrado para atualizar.' });
+        }
         return res.status(500).json({ error: 'Erro ao atualizar Usuário.' });
     }
 };
@@ -123,7 +132,10 @@ export const deletar = async (req, res) => {
 
         await usuario.deletar();
 
-        return res.status(200).json({ message: `O Usuário "${usuario.nome}" foi deletado com sucesso!`, deletado: usuario });
+        return res.status(200).json({
+            message: `O Usuário "${usuario.nome}" foi deletado com sucesso!`,
+            deletado: usuario,
+        });
     } catch (error) {
         console.error('Erro ao deletar:', error);
         return res.status(500).json({ error: 'Erro ao deletar usuário.' });

@@ -1,5 +1,5 @@
 import express from 'express';
-import * as controller from '../controllers/equipeController.js';
+import * as controller from '../controllers/alternativaController.js';
 
 const router = express.Router();
 
