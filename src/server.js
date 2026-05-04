@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import livroRoutes from './routes/livroRoutes.js';
+import autorRoutes from './routes/autorRoutes.js'
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 // Rotas
 
 app.use('/', livroRoutes);
+app.use('/', autorRoutes);
 
 
 app.use((req, res) => {

@@ -7,7 +7,7 @@ export const criar = async (req, res) => {
             return res.status(400).json({ error: 'Corpo da requisição vazio. Envie os dados!' });
         }
 
-        const { nome, resumo, personagens, contextoHist, publicacao } = req.body;
+        const { nome, resumo, personagens, contextoHist, publicacao, autorId } = req.body;
 
         if (!nome){
             return res.status(400).json({ error: 'O campo "nome" é obrigatório!' });
@@ -23,6 +23,9 @@ export const criar = async (req, res) => {
         }
         if (!publicacao) {
             return res.status(400).json({ error: 'O campo "publicacao" é obrigatório!' });
+        }
+        if (!autorId) {
+            return res.status(400).json({ error: 'O campo "autorId" é obrigatório!' });
         }
 
 
