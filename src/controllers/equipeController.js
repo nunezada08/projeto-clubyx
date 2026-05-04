@@ -103,6 +103,10 @@ export const deletar = async (req, res) => {
             return res.status(404).json({ error: 'Equipe não encontrada para deletar.' });
         }
 
+        if (equipe.integrantes && equipe.integrantes.length > 0) {
+            return res.status(409).json({ error: 'Não é possível deletar a equipe porque existem integrantes vinculados.' });
+        }
+
         await equipe.deletar();
 
         return res.status(200).json({ message: `A equipe "${equipe.nome}" foi deletada com sucesso!`, deletado: equipe });

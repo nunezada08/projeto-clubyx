@@ -1,13 +1,13 @@
 import prisma from '../lib/services/prismaClient.js';
 
 export default class UsuarioModel {
-    constructor({ id = null, nome, email, senha, numeroTelefone = null, foto = null} = {}) {
+    constructor({ id = null, nome, email, senha, numeroTelefone = null, foto = null } = {}) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.numeroTelefone = numeroTelefone;
-        this.foto = foto
+        this.foto = foto;
     }
 
     async criar() {
@@ -38,9 +38,9 @@ export default class UsuarioModel {
             where.nome = { contains: filtros.nome, mode: 'insensitive' };
         }
         if (filtros.email) {
-            where.email = { contains: filtros.email, mode: 'insensitive'}
+            where.email = { contains: filtros.email, mode: 'insensitive' };
         }
-        return prisma.exemplo.findMany({ where });
+        return prisma.usuario.findMany({ where });
     }
 
     static async buscarPorId(id) {
