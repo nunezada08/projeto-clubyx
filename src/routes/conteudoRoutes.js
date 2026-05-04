@@ -1,5 +1,5 @@
 import express from 'express';
-import * as controller from '../controllers/conteudoController';
+import * as controller from '../controllers/conteudoController.js';
 
 const router = express.Router();
 
