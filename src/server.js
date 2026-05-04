@@ -7,6 +7,9 @@ import livroRoutes from './routes/livroRoutes.js'
 import questaosRoutes from './routes/questaoRoute.js'
 import simuladosRoutes from './routes/simuladoRoute.js'
 import usuariosRoutes from './routes/usuarioRoute.js'
+import livroRoutes from './routes/livroRoutes.js';
+import conteudoRoutes from './routes/conteudoRoutes.js'
+import autorRoutes from './routes/autorRoutes.js'
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,12 +22,23 @@ app.get('/', (req, res) => {
 
 // Rotas
 app.use('/', alternativasRoutes)
+
 app.use('/', equipesRoutes)
+
 app.use('/', integrantesRoutes)
+
 app.use('/', livroRoutes);
+
 app.use('/', questaosRoutes)
+
 app.use('/', simuladosRoutes)
+
 app.use('/', usuariosRoutes)
+
+app.use('/', conteudoRoutes);
+
+app.use('/', autorRoutes);
+
 
 
 app.use((req, res) => {
