@@ -92,7 +92,7 @@ model Autor {
     dataNascimento  DateTime
     dataMorte       DateTime?
     foto            String?
-    livros   Livro[]
+    livros          Livro[]
 
 
     @@map("autor")

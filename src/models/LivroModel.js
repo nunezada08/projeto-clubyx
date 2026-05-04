@@ -1,15 +1,24 @@
 import prisma from '../lib/services/prismaClient.js';
 
 export default class LivroModel {
-    constructor({ id = null, nome, resumo, personagens, contextoHist, publicacao, foto = null } = {}) {
+    constructor({
+        id = null,
+        nome,
+        resumo,
+        personagens,
+        contextoHist,
+        publicacao,
+        autorId,
+        foto = null,
+    } = {}) {
         this.id = id;
         this.nome = nome;
         this.resumo = resumo;
         this.personagens = personagens;
         this.contextoHist = contextoHist;
         this.publicacao = publicacao;
+        this.autorId = autorId;
         this.foto = foto;
-
     }
 
     async criar() {
@@ -20,6 +29,7 @@ export default class LivroModel {
                 personagens: this.personagens,
                 contextoHist: this.contextoHist,
                 publicacao: this.publicacao,
+                autorId: this.autorId,
             },
         });
     }
@@ -27,7 +37,14 @@ export default class LivroModel {
     async atualizar() {
         return prisma.livro.update({
             where: { id: this.id },
-            data: { nome: this.nome, resumo: this.resumo, personagens: this.personagens, contextoHist: this.contextoHist, publicacao: this.publicacao, foto: this.foto  },
+            data: {
+                nome: this.nome,
+                resumo: this.resumo,
+                personagens: this.personagens,
+                contextoHist: this.contextoHist,
+                publicacao: this.publicacao,
+                foto: this.foto,
+            },
         });
     }
 
