@@ -1,5 +1,6 @@
 import ConteudoModel from '../models/ConteudoModel.js';
 
+
 export const criar = async (req, res) => {
     try {
         if (!req.body) {
