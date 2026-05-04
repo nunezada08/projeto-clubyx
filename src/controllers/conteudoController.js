@@ -1,4 +1,4 @@
-import ConteudoModel from '../models/ConteudoModel';
+import ConteudoModel from '../models/ConteudoModel.js';
 
 
 export const criar = async (req, res) => {

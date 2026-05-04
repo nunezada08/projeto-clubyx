@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import livroRoutes from './routes/livroRoutes.js';
+import conteudoRoutes from './routes/conteudoRoutes.js'
 import autorRoutes from './routes/autorRoutes.js'
 
 const app = express();
@@ -15,7 +16,11 @@ app.get('/', (req, res) => {
 // Rotas
 
 app.use('/', livroRoutes);
+
+app.use('/', conteudoRoutes);
+
 app.use('/', autorRoutes);
+
 
 
 app.use((req, res) => {
