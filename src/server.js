@@ -14,6 +14,7 @@ import { apiKey } from './lib/middlewares/APIkey.js';
 // FOTOS --------------------------------------------------
 import fotoRouteLivro from './routes/fotoRouteLivro.js';
 import fotoRouteUsuario from './routes/fotoRouteUsuarios.js'
+import fotoRouteAutor from './routes/fotoRouteAutor.js'
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -44,6 +45,7 @@ app.use('/usuarios', apiKey, fotoRouteUsuario);
 app.use('/conteudo', apiKey, conteudoRoutes);
 
 app.use('/autor', apiKey, autorRoutes);
+app.use('/autor', apiKey, fotoRouteAutor);
 
 app.use('/uploads', express.static('uploads'));
 
