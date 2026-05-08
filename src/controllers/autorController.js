@@ -7,7 +7,7 @@ export const criar = async (req, res) => {
             return res.status(400).json({ error: 'Corpo da requisição vazio. Envie os dados!' });
         }
 
-        const { nome, biografiaAutor, dataNascimento, dataMorte } = req.body;
+        const { nome, biografiaAutor, dataNascimento, dataMorte, foto } = req.body;
 
         if (!nome){
             return res.status(400).json({ error: 'O campo "nome" é obrigatório!' });
@@ -20,7 +20,7 @@ export const criar = async (req, res) => {
         }
 
 
-        const autor = new AutorModel({ nome, biografiaAutor, dataNascimento, dataMorte });
+        const autor = new AutorModel({ nome, biografiaAutor, dataNascimento, dataMorte, foto });
         const data = await autor.criar();
 
         return res.status(201).json({ message: 'Autor criado com sucesso!', data });
