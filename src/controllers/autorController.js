@@ -96,6 +96,7 @@ export const atualizar = async (req, res) => {
         if (req.body.dataMorte !== undefined) {
             autor.dataMorte = req.body.dataMorte;
         }
+        if (req.body.foto !== undefined) livro.foto = req.body.foto;
 
         const data = await autor.atualizar();
 
