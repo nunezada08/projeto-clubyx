@@ -7,7 +7,6 @@ import livroRoutes from './routes/livroRoutes.js'
 import questaosRoutes from './routes/questaoRoute.js'
 import simuladosRoutes from './routes/simuladoRoute.js'
 import usuariosRoutes from './routes/usuarioRoute.js'
-import livroRoutes from './routes/livroRoutes.js';
 import conteudoRoutes from './routes/conteudoRoutes.js'
 import autorRoutes from './routes/autorRoutes.js'
 
