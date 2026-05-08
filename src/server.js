@@ -17,6 +17,9 @@ import fotoRouteUsuario from './routes/fotoRouteUsuarios.js'
 import fotoRouteAutor from './routes/fotoRouteAutor.js'
 import fotoRouteIntegrantes from './routes/fotoRouteIntegrantes.js'
 
+// ARQUIVO ----------------------------------------------------
+import arquivoRoutes from './routes/arquivoRoute.js'
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -52,6 +55,7 @@ app.use('/autor', apiKey, fotoRouteAutor);
 
 app.use('/uploads', express.static('uploads'));
 
+app.use('/arquivos', apiKey, arquivoRoutes)
 
 
 app.use((req, res) => {
